@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<launch>
+        <!-- overwriting these args -->
+        <arg name="debug" default="false" />
+        <arg name="gui" default="true" />
+        <arg name="pause" default="false" />
+        <arg name="world" default="$(find-pkg-share vbn_ml)/GazeboWorlds/straight_corridor.world" />
+        <arg name="extra_gazebo_args" default="--verbose"/>
+      
+       <!-- Short-term hack to support the original front_laser:=true argument for spawning
+       the simulator. This will be removed in favour of using the config:=x arg instead. -->
+        <arg name="front_laser" default="false" />
+        <arg name="default_config" value="front_laser" if="$(arg front_laser)" />
+        <arg name="default_config" value="base" unless="$(arg front_laser)" />
+        <!-- end of hack -->
+       
+        <!-- Configuration of Jackal which you would like to simulate.
+       See jackal_description for details. -->
+        <arg name="config" default="$(arg default_config)" />
+
+        <!-- include gazebo_ros launcher -->
+        <include file="$(find-pkg-share gazebo_ros)/launch/empty_world.launch">
+                <arg name="world_name" value="$(arg world)" />
+                <arg name="debug" value="$(arg debug)" />
+                <arg name="gui" value="$(arg gui)" />
+                <arg name="paused" value="$(arg pause)" />
+                <arg name="use_sim_time" value="true" />
+                <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/>
+        </include>
+
+         <!-- Spawn Jackal-->
+        <include file="$(find-pkg-share vbn_ml)/launch/spawn_jackal.launch">
+                <arg name="x" value="10" />
+                <arg name="y" value="-1.5" />
+                <arg name="z" value="1.0" />
+                <arg name="yaw" value="-3.15" />
+                <arg name="config" value="$(arg config)" />
+        </include> 
+
+         <!--<param name="filter_mad" type="bool" value="true" /> 
+        set value to true to use median absolute deviation for filtering and 
+        false to use mean filtering-->
+        <!--directly run all three nodes
+        <include file="$(find vision_based_navigation_ttt_ml)/launch/optical_flow_nodes.launch">
+        </include>
+        <node name="change_env" pkg="vbn_ml" type="change_box_color_in_env.py"/> -->
+</launch>       
+
+

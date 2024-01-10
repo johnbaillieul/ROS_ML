@@ -1,0 +1,126 @@
+<?xml version='1_0'?>
+<sdf version="1.5">
+  <model name="2_stacks">
+    <pose>0 0 0 0 0 1.57079633</pose>
+    <static>true</static>
+    <!-- 1st row -->
+    <link name="link_0">
+      <collision name="collision_0">
+        <pose>0 0 0.18 0 0 3.14</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.465 0.36</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='visual_0'>
+        <pose>0 0 0.18 0 0 3.14</pose>
+        <geometry>
+            <mesh>
+              <uri>model://2_stacks/meshes/exact_blue_circle_border.dae</uri>
+            </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_1">
+      <collision name="collision_1">
+        <pose>0 0 0.54 0 0 3.14</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.465 0.36</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='visual_1'>
+        <pose>0 0 0.54 0 0 3.14</pose>
+        <geometry>
+            <mesh>
+              <uri>model://2_stacks/meshes/exact_red_circle_border.dae</uri>
+            </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_2">
+      <collision name="collision_2">
+        <pose>0 0 0.9 0 0 3.14</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.465 0.36</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='visual_2'>
+        <pose>0 0 0.9 0 0 3.14</pose>
+        <geometry>
+            <mesh>
+              <uri>model://2_stacks/meshes/exact_green_circle_border.dae</uri>
+            </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_3">
+      <collision name="collision_3">
+        <pose>0 0.465 0.18 0 0 3.14</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.465 0.36</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='visual_3'>
+        <pose>0 0.465 0.18 0 0 3.14</pose>
+        <geometry>
+            <mesh>
+              <uri>model://2_stacks/meshes/exact_blue_circle_border.dae</uri>
+            </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <gazebo reference="my_box">
+      <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <link name="link_4">
+      <collision name="collision_4">
+        <pose>0 0.465 0.54 0 0 3.14</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.465 0.36</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='visual_4'>
+        <pose>0 0.465 0.54 0 0 3.14</pose>
+        <geometry>
+            <mesh>
+              <uri>model://2_stacks/meshes/exact_red_circle_border.dae</uri>
+            </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_5">
+      <collision name="collision_5">
+        <pose>0 0.465 0.9 0 0 3.14</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.465 0.36</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='visual_5'>
+        <pose>0 0.465 0.9 0 0 3.14</pose>
+        <geometry>
+            <mesh>
+              <uri>model://2_stacks/meshes/exact_green_circle_border.dae</uri>
+            </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+  </model>
+</sdf> 
+
