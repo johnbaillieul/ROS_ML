@@ -21,7 +21,7 @@ def generate_launch_description():
     gz_resource_path = SetEnvironmentVariable(name='GAZEBO_MODEL_PATH', value=[
                                                 EnvironmentVariable('GAZEBO_MODEL_PATH',
                                                                     default_value=''),
-                                                '/usr/share/gazebo-11/models/:/home/olagh/ROS_ML/src/vbn_ml/models',
+                                                '/usr/share/gazebo-11/models/:/home/olagh/ROS_ML/src/vbn_ml/models:',
                                                 str(Path(get_package_share_directory('jackal_description')).
                                                     parent.resolve())])
 
@@ -65,7 +65,7 @@ def generate_launch_description():
              '-s', 'libgazebo_ros_init.so',
              '-s', 'libgazebo_ros_factory.so',
              '--verbose',
-             '--world', str(Path(get_package_share_directory('vbn_ml')) / 'GazeboWorlds' / 'T_shaped_corridor.world')],
+             '--world', str(Path(get_package_share_directory('vbn_ml')) / 'GazeboWorlds' / 'straight_corridor.world')],
         output='screen',
     )
 

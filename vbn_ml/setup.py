@@ -27,7 +27,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'optical_flow = vbn_ml.optical_flow:main' ,
+            'optical_flow = vbn_ml.optical_flow:main',
             'tau_computation = vbn_ml.tau_computation:main',
             'controller = vbn_ml.controller:main',
             'change_env = vbn_ml.change_box_color_in_env:main',

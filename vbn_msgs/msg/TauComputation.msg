@@ -6,7 +6,3 @@ float32 tau_er
 float32 tau_l
 float32 tau_r
 float32 tau_c
-float32 mean_proj_x_left_e
-float32 mean_proj_x_right_e
-float32 mean_proj_x_right
-float32 mean_proj_x_left

@@ -15,7 +15,7 @@ class ChangeEnvironmentNode(Node):
         num_b_img = 6
         num_g_img = 6
 
-        path = os.environ["HOME"] + "/ROS_ML/src/vbn_ml/"
+        path = os.environ["HOME"] + "/ros_ml_ws/src/ROS_ML/vbn_ml/"
 
         path_red = path + "images_with_colored_bkg/red/red_"
         path_green = path + "images_with_colored_bkg/green/green_"
@@ -99,7 +99,3 @@ def main(args=None):
     node = ChangeEnvironmentNode()
     node.change_environment()
     rclpy.shutdown()
-
-
-if __name__ == '__main__':
-    main()

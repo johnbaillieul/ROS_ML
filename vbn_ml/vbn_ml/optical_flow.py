@@ -96,7 +96,7 @@ class OFCalculator(Node):
         super().__init__('optical_flow')
 
         ########## IMPORTANT PARAMETERS: ##########
-        self.image_sub_name = "/camera/camera/color/image_raw"  # NOTE: change topic name depending on real or sim
+        self.image_sub_name = "/front_camera/image_raw"  # NOTE: change topic name depending on real or sim
         self.num_ext_features = 250
         self.num_cen_features = 100
         self.min_feat_threshold = 1.0
@@ -252,52 +252,58 @@ class OFCalculator(Node):
                 self.prev_kps = np.array([], dtype='f')
                 print("Features detected: 0")
 
-        tracked_features, status, error = cv2.calcOpticalFlowPyrLK(self.prev_image, curr_image,
-                                                                   self.prev_kps, None,
-                                                                   **self.lk_params)
+        # print("%%%%%%%%%%%%%%%%%%%%%%%%%%%", self.prev_image)
+        # print("***************************", curr_image)
+        print("***************************", self.prev_kps)
+        print("***************************", len(self.prev_kps))
+        if len(self.prev_kps) != 0:
+            print("***************************", self.prev_kps)
+            tracked_features, status, error = cv2.calcOpticalFlowPyrLK(self.prev_image, curr_image,
+                                                                       self.prev_kps, None,
+                                                                       **self.lk_params)
 
-        # Select good points
-        good_kps_new = tracked_features[status == 1]
-        good_kps_old = self.prev_kps[status == 1]
-        # print("len matches "+ str(len(good_kps_new)))
+            # Select good points
+            good_kps_new = tracked_features[status == 1]
+            good_kps_old = self.prev_kps[status == 1]
+            # print("len matches "+ str(len(good_kps_new)))
 
-        if np.size(good_kps_new) < self.min_feat_threshold * np.size(self.prev_kps):
-            self.tracking = False
-            self.prev_kps = np.array([], dtype='f')
-        elif np.size(good_kps_new) <= self.min_num_features:
-            self.tracking = False
-            self.prev_kps = np.array([], dtype='f')
-        else:
-            self.prev_kps = np.float32(good_kps_new.reshape(-1, 1, 2))
+            if np.size(good_kps_new) < self.min_feat_threshold * np.size(self.prev_kps):
+                self.tracking = False
+                self.prev_kps = np.array([], dtype='f')
+            elif np.size(good_kps_new) <= self.min_num_features:
+                self.tracking = False
+                self.prev_kps = np.array([], dtype='f')
+            else:
+                self.prev_kps = np.float32(good_kps_new.reshape(-1, 1, 2))
 
-        # Get time between images
-        dt = curr_time - self.prev_time
+            # Get time between images
+            dt = curr_time - self.prev_time
 
-        # Calculate flow field
-        flow = good_kps_new - good_kps_old
-        print("Flow: ", type(good_kps_old))
-        # Draw the flow field
+            # Calculate flow field
+            flow = good_kps_new - good_kps_old
+            print("Flow: ", type(good_kps_old))
+            # Draw the flow field
 
-        if self.show == 1:
-            draw_optical_flow_field(curr_image, good_kps_old, good_kps_new, flow, dt)
-            # Publish Optical Flow data to rostopic
-        msg = OpticalFlow()
-        msg.header.stamp.sec = secs
-        msg.header.stamp.nanosec = nsecs
+            if self.show == 1:
+                draw_optical_flow_field(curr_image, good_kps_old, good_kps_new, flow, dt)
+                # Publish Optical Flow data to rostopic
+            msg = OpticalFlow()
+            msg.header.stamp.sec = secs
+            msg.header.stamp.nanosec = nsecs
 
-        msg.height = data.height
-        msg.width = data.width
+            msg.height = data.height
+            msg.width = data.width
 
-        msg.dt = dt * 1.0 # in msec
+            msg.dt = dt * 1.0 # in msec
 
-        msg.x = Float32MultiArray(data = good_kps_old[:, 0])
-        msg.y = Float32MultiArray(data = good_kps_old[:, 1])
-        msg.vx = Float32MultiArray(data = flow[:, 0] / dt)
-        msg.vy = Float32MultiArray(data = flow[:, 1] / dt)
-        self.optic_flow_pub.publish(msg)
+            msg.x = Float32MultiArray(data = good_kps_old[:, 0])
+            msg.y = Float32MultiArray(data = good_kps_old[:, 1])
+            msg.vx = Float32MultiArray(data = flow[:, 0] / dt)
+            msg.vy = Float32MultiArray(data = flow[:, 1] / dt)
+            self.optic_flow_pub.publish(msg)
 
-        self.prev_image = curr_image
-        self.prev_time = curr_time
+            self.prev_image = curr_image
+            self.prev_time = curr_time
 
 
 def main(args=None):
