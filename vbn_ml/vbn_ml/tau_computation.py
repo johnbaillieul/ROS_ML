@@ -125,7 +125,10 @@ def tau_final_value(self, vector, cnt):
 
 # Visual representation of the ROIs with the average TTT values
 def draw_image_segmentation(curr_image, tau_el, tau_er, tau_l, tau_r, tau_c):
+<<<<<<< HEAD
     print("&&&&&&&&&&&&&&&&&&&&&",curr_image)
+=======
+>>>>>>> 3f335beba75efef78c4d73ec05a1ce7e682e8d63
     color_image = cv2.cvtColor(curr_image, cv2.COLOR_GRAY2BGR)
     color_blue = [255, 225, 0]
     color_green = [0, 255, 0]
@@ -176,7 +179,9 @@ class TauComputationClass(Node):
         ####### IMPORTANT PARAMETERS: ########
         # Minimum number of features needed to compute the average TTT for each ROI
         self.min_TTT_number = 10
+
         self.image_sub_name = "/front_camera/image_raw"
+
         #######################################
 
         # First time that the callback is called
@@ -214,10 +219,12 @@ class TauComputationClass(Node):
 
         vx = data.vx.data
         vy = data.vy.data
+
         # print("x", x)
         # print("y", y)
         # print("vx", vx)
         # print("vy", vy)
+
 
         # Definition of the five ROIs only the first time the callback is called
         if self.first_time:
@@ -388,6 +395,7 @@ class TauComputationClass(Node):
         self.tau_values.publish(msg)
 
         # Draw the ROIs with their TTT values
+
         if self.curr_image is not None:
             draw_image_segmentation(self.curr_image, final_tau_left_e, final_tau_right_e, final_tau_left, final_tau_right,
                                 final_tau_centre)
@@ -395,7 +403,6 @@ class TauComputationClass(Node):
     # Callback for the image topic
     def callback_img(self, data):
         try:
-            print("&&&&&&&&&&&&&&&&&&&&&&&")
             self.curr_image = self.bridge.imgmsg_to_cv2(data, "mono8")
         except CvBridgeError as e:
             print(e)

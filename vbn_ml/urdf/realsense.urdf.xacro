@@ -34,6 +34,7 @@
           <far>50.0</far>
         </clip>
       </camera>
+
       <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
         <alwaysOn>1</alwaysOn>
          <updateRate>0</updateRate>

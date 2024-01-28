@@ -96,7 +96,9 @@ class OFCalculator(Node):
         super().__init__('optical_flow')
 
         ########## IMPORTANT PARAMETERS: ##########
+
         self.image_sub_name = "/front_camera/image_raw"  # NOTE: change topic name depending on real or sim
+
         self.num_ext_features = 250
         self.num_cen_features = 100
         self.min_feat_threshold = 1.0
@@ -304,6 +306,7 @@ class OFCalculator(Node):
 
             self.prev_image = curr_image
             self.prev_time = curr_time
+
 
 
 def main(args=None):

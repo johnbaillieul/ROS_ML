@@ -66,6 +66,7 @@ def generate_launch_description():
              '-s', 'libgazebo_ros_factory.so',
              '--verbose',
              '--world', str(Path(get_package_share_directory('vbn_ml')) / 'GazeboWorlds' / 'straight_corridor.world')],
+
         output='screen',
     )
 
